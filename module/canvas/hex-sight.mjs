@@ -51,6 +51,15 @@ export default class HexSightPolygon extends foundry.canvas.geometry.PointSource
   /* -------------------------------------------- */
 
   /** @override */
+  _testCollision(ray, mode, destination, tMin, tMax) {
+    if ( mode === "any" ) return false;
+    if ( mode === "all" ) return [];
+    return null;
+  }
+
+  /* -------------------------------------------- */
+
+  /** @override */
   _compute() {
     const t = canvas.grid.type;
     const hex = new foundry.grid.GridHex(canvas.grid.getOffset(this.origin), canvas.grid);
