@@ -32,7 +32,9 @@ export default class SceneConfig {
 
     const type = html.elements?.["grid.type"];
     type.addEventListener("change", SceneConfig.onChangeGridType);
-    group.toggleAttribute("hidden", Number(type?.value) < 2);
+    const hidden = Number(type?.value) < 2;
+    group.toggleAttribute("hidden", hidden);
+    rangeGroup.toggleAttribute("hidden", hidden);
   }
 
   /* -------------------------------------------- */
@@ -43,8 +45,9 @@ export default class SceneConfig {
    */
   static onChangeGridType(event) {
     const type = event.currentTarget;
-    const hexploration = type.form.elements["flags.hexploration.enabled"].closest(".form-group");
-    hexploration.toggleAttribute("hidden", Number(type.value) < 2);
+    const hidden = Number(type.value) < 2;
+    type.form.elements["flags.hexploration.enabled"].closest(".form-group").toggleAttribute("hidden", hidden);
+    type.form.elements["flags.hexploration.range"].closest(".form-group").toggleAttribute("hidden", hidden);
   }
 
   /* -------------------------------------------- */
