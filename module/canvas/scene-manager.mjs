@@ -21,6 +21,7 @@ export default class HexplorationSceneManager extends foundry.canvas.SceneManage
       this.#originalSightBackend = CONFIG.Canvas.polygonBackends.sight;
     }
     CONFIG.Canvas.polygonBackends.sight = HexSightPolygon;
+    Hooks.on("initializeVisionSources", HexplorationSceneManager.#onInitializeVisionSources);
   }
 
   /* -------------------------------------------- */
@@ -28,6 +29,15 @@ export default class HexplorationSceneManager extends foundry.canvas.SceneManage
   async _onTearDown() {
     CONFIG.Canvas.polygonBackends.sight = this.#originalSightBackend ?? foundry.canvas.geometry.ClockwiseSweepPolygon;
     this.#originalSightBackend = undefined;
+    Hooks.off("initializeVisionSources", HexplorationSceneManager.#onInitializeVisionSources);
+  }
+
+  /* -------------------------------------------- */
+
+  static #onInitializeVisionSources(visionSources) {
+    for ( const source of visionSources ) {
+      if ( source.data.radius === 0 ) source.data.radius = canvas.grid.sizeX;
+    }
   }
 
   /* -------------------------------------------- */

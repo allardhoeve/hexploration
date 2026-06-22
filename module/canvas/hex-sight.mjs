@@ -64,8 +64,8 @@ export default class HexSightPolygon extends foundry.canvas.geometry.PointSource
     const t = canvas.grid.type;
     const hex = new foundry.grid.GridHex(canvas.grid.getOffset(this.origin), canvas.grid);
     const points = HexSightPolygon.POINTS[t >= 2 && t <= 3 ? "row" : "col"];
-    const range = foundry.utils.getProperty(this.config, "source.object.document.sight.range") ?? 1;
-    this.points = HexSightPolygon.applyPadding(hex, points[range - 1] ?? points[0]);
+    const range = canvas.scene.getFlag("hexploration", "range") ?? 0;
+    this.points = HexSightPolygon.applyPadding(hex, points[range] ?? points[0]);
   }
 
   /* -------------------------------------------- */
