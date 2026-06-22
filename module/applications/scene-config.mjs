@@ -8,7 +8,7 @@ export default class SceneConfig {
    * @param {HTMLElement} html  The rendered markup.
    */
   static addOptions(scene, html) {
-    const fog = html.elements?.["fog.exploration"];
+    const fog = html.elements?.["fog.mode"];
     if ( !fog ) return;
     const field = new foundry.data.fields.BooleanField({
       hint: "HEXPLORATION.FIELDS.enabled.hint",
