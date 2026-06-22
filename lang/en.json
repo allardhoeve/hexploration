@@ -2,8 +2,12 @@
   "HEXPLORATION": {
     "FIELDS": {
       "enabled": {
-        "hint": "When enabled, tokens will explore only a single hex, or all adjacent hexes, based on their vision range.",
+        "hint": "When enabled, tokens will explore hexes based on the Hex Vision Range configured below.",
         "label": "Single-Hex Exploration"
+      },
+      "range": {
+        "hint": "Number of hex rings revealed by tokens. 0 = current hex only, 1 = current hex and all adjacent hexes.",
+        "label": "Hex Vision Range"
       }
     }
   }

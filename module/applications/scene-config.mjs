@@ -17,6 +17,19 @@ export default class SceneConfig {
     const value = scene.getFlag("hexploration", "enabled") ?? false;
     const group = field.toFormGroup({ localize: true }, { value });
     fog.closest(".form-group").insertAdjacentElement("afterend", group);
+
+    const rangeField = new foundry.data.fields.NumberField({
+      hint: game.i18n.localize("HEXPLORATION.FIELDS.range.hint"),
+      label: game.i18n.localize("HEXPLORATION.FIELDS.range.label"),
+      integer: true,
+      min: 0,
+      max: 1,
+      initial: 0
+    }, { name: "flags.hexploration.range" });
+    const rangeValue = scene.getFlag("hexploration", "range") ?? 0;
+    const rangeGroup = rangeField.toFormGroup({}, { value: rangeValue, type: "number" });
+    group.insertAdjacentElement("afterend", rangeGroup);
+
     const type = html.elements?.["grid.type"];
     type.addEventListener("change", SceneConfig.onChangeGridType);
     group.toggleAttribute("hidden", Number(type?.value) < 2);
