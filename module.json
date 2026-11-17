@@ -3,7 +3,7 @@
   "title": "Hexploration",
   "description": "A simple module for hex-based exploration.",
   "authors": [{ "name": "Kim Mantas", "discord": "fyorl", "url": "https://foundryvtt.com" }],
-  "version": "1.1.2",
+  "version": "1.1.3",
   "compatibility": {
     "minimum": "13",
     "verified": "13"
@@ -11,6 +11,6 @@
   "esmodules": ["module/hexploration.mjs"],
   "languages": [{ "lang": "en", "name": "English", "path": "lang/en.json" }],
   "url": "https://github.com/foundryvtt/hexploration",
-  "manifest": "https://raw.githubusercontent.com/allardhoeve/hexploration/feat/scene-level-vision-range/module.json",
-  "download": "https://github.com/allardhoeve/hexploration/archive/refs/tags/release-1.1.2.zip"
+  "manifest": "https://raw.githubusercontent.com/allardhoeve/hexploration/master/module.json",
+  "download": "https://github.com/allardhoeve/hexploration/archive/refs/tags/release-1.1.3.zip"
 }
