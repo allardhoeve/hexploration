@@ -1,4 +1,5 @@
 import HexSightPolygon from './hex-sight.mjs';
+import HexVisionSource from './hex-vision-source.mjs';
 
 export default class HexplorationSceneManager extends foundry.canvas.SceneManager {
   /**
@@ -6,6 +7,12 @@ export default class HexplorationSceneManager extends foundry.canvas.SceneManage
    * @type {PointSourcePolygon}
    */
   #originalSightBackend;
+
+  /**
+   * The original vision source class.
+   * @type {typeof PointVisionSource}
+   */
+  #originalVisionSourceClass;
 
   /* -------------------------------------------- */
 
@@ -21,7 +28,10 @@ export default class HexplorationSceneManager extends foundry.canvas.SceneManage
       this.#originalSightBackend = CONFIG.Canvas.polygonBackends.sight;
     }
     CONFIG.Canvas.polygonBackends.sight = HexSightPolygon;
-    Hooks.on("initializeVisionSources", HexplorationSceneManager.#onInitializeVisionSources);
+    if ( CONFIG.Canvas.visionSourceClass !== HexVisionSource ) {
+      this.#originalVisionSourceClass = CONFIG.Canvas.visionSourceClass;
+    }
+    CONFIG.Canvas.visionSourceClass = HexVisionSource;
   }
 
   /* -------------------------------------------- */
@@ -29,15 +39,8 @@ export default class HexplorationSceneManager extends foundry.canvas.SceneManage
   async _onTearDown() {
     CONFIG.Canvas.polygonBackends.sight = this.#originalSightBackend ?? foundry.canvas.geometry.ClockwiseSweepPolygon;
     this.#originalSightBackend = undefined;
-    Hooks.off("initializeVisionSources", HexplorationSceneManager.#onInitializeVisionSources);
-  }
-
-  /* -------------------------------------------- */
-
-  static #onInitializeVisionSources(visionSources) {
-    for ( const source of visionSources ) {
-      if ( source.data.radius === 0 ) source.data.radius = canvas.grid.sizeX;
-    }
+    CONFIG.Canvas.visionSourceClass = this.#originalVisionSourceClass ?? foundry.canvas.sources.PointVisionSource;
+    this.#originalVisionSourceClass = undefined;
   }
 
   /* -------------------------------------------- */
